@@ -1,0 +1,29 @@
+nav.navbar.navbar-default
+  .nav
+    span.iconfont.icon-zhuye.nav-right
+#sidebar
+  #Jiahao
+      div
+        i.iconfont.icon-jiahao
+  #touxiang
+    .pull-left
+      img.media-object(src='/touxiang/#{user.touxiang}',style='width:44px; height:44px; border-radius: 44px;')
+    span.Name #{user.username}
+  #liebiao
+    ul
+      li
+        a.iconfont.icon-zhuye1(href="/content") 主页
+      li
+        a.iconfont.icon-wode1(href="/icon-wode") 我的
+      li
+        a.iconfont.icon-kebiaoxinxi(href="/icon-ht-class") 课表
+      li
+        a.iconfont.icon-tuichu(href="/logout") 退出
+  #tianqi
+    .pull-right
+      .weather
+      .wendu
+      .shijianpoint
+        span.shijian
+        span.point
+#maskl

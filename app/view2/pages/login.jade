@@ -1,0 +1,46 @@
+doctype
+html
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no")
+    title 登录
+    style.
+      body {
+        background-color: #EBECF0 !important; }
+    link(href="/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet")
+    link(href="/css/main.css" rel="stylesheet")
+  body
+    .container
+      .headimg
+        img(src="/touxiang/default.png")
+      form(action="/user/signin", method="POST", accept-charset="utf-8")
+        label(for="signinUsername")
+        input#signinUsername.inpu(type="text", placeholder="账号/学号", name="user[username]")
+        label(for="signinPassword")
+        input#signinPassword.inpu(type="password", placeholder="密码", name="user[password]")
+        .inpu
+          button.btn#login(type="submit") 登   录
+      a.zhuce(href="#", data-toggle="modal", data-target="#signupModal") 新用户注册
+      if errors.toString()
+        span.alertbox #{errors}
+#signupModal.modal.fade
+  .modal-dialog
+    .modal-content
+      form(method="POST", action="/user/signup")
+        .modal-header 注册
+        .modal-body
+          .form-group
+            label(for="signupName") 账号
+            input#signupName.form-control(name="user[username]", type="text")
+          .form-group
+            label(for="signupPassword") 密码
+            input#signupPassword.form-control(name="user[password]", type="text")
+          .modal-footer
+            span #{warning}
+            button.btn.btn-success(type="submit") 提交
+
+
+script(src="/libs/jquery/dist/jquery.min.js")
+script(src="/libs/bootstrap/dist/js/bootstrap.min.js")
+script(src="/js/main.js")

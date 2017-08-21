@@ -1,0 +1,41 @@
+extends ../layout
+
+block content
+  .container
+    .row
+      .col-md-10
+        .panel.panel-defatul
+          .panel-heading(style="margin-top:0;padding:0;")
+            h3 留言板
+             span(style="font-size:12px;margin-left:25px;") 欢迎大家留言，点击头像即可回复
+          .panel-body(style="margin-top:0;padding:0;")
+            ul.media-list
+             each item in messages
+              li.media#bor
+                .pull-left
+                  a.message(href="#messages", data-cid="#{item._id}", data-tid="#{item.from._id}")
+                    img.media-object(src='/touxiang/#{item.from.touxiang}',style='width:40px; height:40px; border-radius: 40px;')
+                .media-body
+                  .pull-right
+                    span #{moment(item.meta.updateAt).format('M/D/H:m')}
+                  h4.media-heading #{item.from.username}
+                  p(style='font-size:16px;') #{item.content}
+                  if item.reply && item.reply.length > 0
+                    each reply in item.reply
+                      .media
+                        .pull-left
+                          a.message(href="#messages", data-cid="#{item._id}", data-tid="#{reply.from._id}")
+                            img.media-object(src='/touxiang/#{reply.from.touxiang}',style='width:40px; height:40px; border-radius: 40px;')
+                        .media-body
+                          h5.media-heading(style='font-size:12px;')
+                            | #{reply.from.username}
+                            span.text-info &nbsp;回复&nbsp;
+                            | #{reply.to.username}:
+                          p(style='font-size:13px;') #{reply.content}
+            #messages
+              div#MessageForm
+                form#messageForm(method="POST", action="/user/message")
+                  input(type="hidden",name="message[from]", value="#{user._id}")
+                  .form-group
+                    textarea.form-control(name="message[content]",row="3")
+                  button.btn.btn-primary.pull-right(type='submit') 提交

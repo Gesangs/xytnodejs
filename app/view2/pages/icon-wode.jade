@@ -1,0 +1,67 @@
+extends ../layout
+block content
+  .container
+    .row
+      div.center-block
+        img(src="./touxiang/#{user.touxiang}")
+      if errors.toString()
+        span.alertbox #{errors}
+      div#xiugai
+        form.form-horizontal(method="post", action="/wode/update", enctype="multipart/form-data")
+          .form-group
+            label.col-xs-4.control-label(for="inputTitle") 账户名
+            .col-xs-6
+              span #{user.username}
+          .form-group
+            label.col-xs-4.control-label(for="inputXuehao") 学号
+            .col-xs-6
+              input#inputXuehao.form-control(type="text", name="user[xuehao]", value="#{user.xuehao}")
+          .form-group
+            label.col-xs-4.control-label(for="uploadTouxiang") 上传头像
+            .col-xs-6
+              input#uploadTouxiang(type="file", name="uploadTouxiang")
+          .form-group
+            label.col-xs-4.control-label(for="inputProfess") 专业
+            .col-xs-6
+              select#inputProfess.form-control.selectpicker(type="text", name="user[zhuanye]", data-aa="#{user.zhuanye}", data-max-options="3", title='-- 请选择 --', value="#{user.zhuanye}")
+                option(value="计算机科学与技术") 计算机科学与技术
+          .form-group
+            label.col-xs-4.control-label(for="inputBanji") 班级
+            .col-xs-6
+              select#inputBanji.form-control.selectpicker(type="text", name="user[banji]", data-aa="#{user.banji}", title='-- 请选择 --', value="#{user.banji}")
+                option(value="141") 141
+                option(value="151") 151
+                option(value="161") 161
+                option(value="171") 171
+          .form-group
+            label.col-xs-4.control-label(for="inputSex") 性别
+            .col-xs-6
+              select#inputSex.form-control.selectpicker(type="text", name="user[sex]", data-aa="#{user.sex}", title='-- 请选择 --', value="#{user.sex}")
+                option(value="男") 男
+                option(value="女") 女
+          div(style="width:10rem; margin:4rem auto;")
+            button.btn.btn-info(type="submit") 完成
+      div#zhanshi
+        form.form-horizontal
+            .form-group
+              label.col-xs-4.control-label(for="inputTitle") 账户名
+              .col-xs-6
+                span.form-control #{user.username}
+            .form-group
+              label.col-xs-4.control-label(for="inputXuehao") 学号
+              .col-xs-6
+                span.form-control #{user.xuehao}
+            .form-group
+              label.col-xs-4.control-label(for="inputProfess") 专业
+              .col-xs-6
+                span.form-control #{user.zhuanye}
+            .form-group
+              label.col-xs-4.control-label(for="inputBanji") 班级
+              .col-xs-6
+                span.form-control #{user.banji}
+            .form-group
+              label.col-xs-4.control-label(for="inputSex") 性别
+              .col-xs-6
+                span.form-control #{user.sex}
+        div(style="width:10rem; margin:4rem auto;")
+          button.btn.btn-info 修改

@@ -1,0 +1,39 @@
+extends ../layout
+block content
+  .container
+    form.form-horizontal(method="post", action="/xuanke/insert")
+      .form-group
+        label.col-xs-4.control-label(for="inputTitle") 课程名称
+        .col-xs-8
+          input#inputTitle.form-control(type="text", name="usercourse[cname]", value="#{usercourse.cname}")
+      .form-group
+        label.col-xs-4.control-label(for="inputDoctor") 老师
+        .col-xs-8
+          input#inputDoctor.form-control(type="text", name="usercourse[teacher]", value="#{usercourse.teacher}")
+      .form-group
+        label.col-xs-4.control-label(for="inputCountry") 地点
+        .col-xs-8
+          input#inputCountry.form-control(type="text", name="usercourse[point]", value="#{usercourse.point}")
+      .form-group
+        label.col-xs-4.control-label(for="inputLanguage") 节次
+        .col-xs-8
+          select#inputLanguage.form-control.selectpicker(type="text", name="usercourse[jieci]", value="#{usercourse.jieci}" title="-- 请选择 --")
+            option(value="一,二") 第一二节
+            option(value="三,四") 第三四节
+            option(value="五,六") 第五六节
+            option(value="七,八") 第七八节
+            option(value="九,十") 第九十节
+      .form-group
+        label.col-xs-4.control-label(for="inputPoster") 星期
+        .col-xs-8
+          select#inputPoster.form-control.selectpicker(type="text", name="usercourse[cweek]", value="#{usercourse.cweek}" title="-- 请选择 --")
+            option(value="周一") 周一
+            option(value="周二") 周二
+            option(value="周三") 周三
+            option(value="周四") 周四
+            option(value="周五") 周五
+            option(value="周六") 周六
+            option(value="周日") 周日
+      .form-group
+        .col-sm-offset-6.col-sm-6
+        button.btn.btn-info(type="submit" style="margin-left:70%") 添加

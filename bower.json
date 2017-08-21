@@ -1,0 +1,24 @@
+{
+  "name": "guodong",
+  "authors": [
+    "gesangs <gesangs@qq.com>"
+  ],
+  "description": "xiaoyuantong",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "moment": "^2.18.1",
+    "bootstrap": "^3.3.7",
+    "bootstrap-select": "^1.12.4"
+  }
+}

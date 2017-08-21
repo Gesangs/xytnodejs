@@ -1,0 +1,12 @@
+doctype
+html(lang="zh-CN")
+  head
+    meta(charset="UTF-8")
+    meta(name="renderer" content="webkit")
+    meta(name="viewport", content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no")
+    title #{title}
+    include ./includes/head.jade
+  body
+    include ./includes/header.jade
+    block content
+    include ./includes/jss.jade

@@ -1,0 +1,78 @@
+extends ../layout
+block content
+  .container
+    form.form-horizontal(method="post", action="/admin/course/insert")
+      .form-group
+        label.col-xs-4.control-label(for="inputTitle") 专业
+        .col-xs-8
+          input#inputTitle.form-control(type="text", name="course[zhuanye]", value="#{course.zhuanye}")
+      .form-group
+        label.col-xs-4.control-label(for="inputTitle") 班级
+        .col-xs-8
+          input#inputTitle.form-control(type="text", name="course[banji]", value="#{course.banji}")
+      .form-group
+        label.col-xs-4.control-label(for="inputTitle") 课程名称
+        .col-xs-8
+          input#inputTitle.form-control(type="text", name="course[cname]", value="#{course.cname}")
+      .form-group
+        label.col-xs-4.control-label(for="inputDoctor") 老师
+        .col-xs-8
+          input#inputDoctor.form-control(type="text", name="course[teacher]", value="#{course.teacher}")
+      .form-group
+        label.col-xs-4.control-label(for="inputCountry") 地点
+        .col-xs-8
+          input#inputCountry.form-control(type="text", name="course[point]", value="#{course.point}")
+      .form-group
+        label.col-xs-4.control-label(for="inputLanguage") 节次
+        .col-xs-8
+          select#inputLanguage.form-control.selectpicker(type="text", name="course[jieci]", value="#{course.jieci}" multiple data-max-options="3" title="-- 请选择 --")
+            option(value="一") 第一节
+            option(value="二") 第二节
+            option(value="三") 第三节
+            option(value="四") 第四节
+            option(value="五") 第五节
+            option(value="六") 第六节
+            option(value="七") 第七节
+            option(value="八") 第八节
+            option(value="九") 第九节
+            option(value="十") 第十节
+      .form-group
+        label.col-xs-4.control-label(for="inputPoster") 星期
+        .col-xs-8
+          select#inputPoster.form-control.selectpicker(type="text", name="course[cweek]", value="#{course.cweek}" title="-- 请选择 --")
+            option(value="周一") 周一
+            option(value="周二") 周二
+            option(value="周三") 周三
+            option(value="周四") 周四
+            option(value="周五") 周五
+            option(value="周六") 周六
+            option(value="周日") 周日
+      .form-group
+        label.col-xs-4.control-label(for="inputFlash") 周次
+        .col-xs-8
+          select#inputFlash.form-control.selectpicker(type="text", name="course[cweekth]", value="#{course.cweekth}" multiple title="-- 请选择 --" data-size="7")
+            option(value="000") 不分单双周
+            option(value="222") 双周
+            option(value="111") 单周
+            option(value="1") 第1周
+            option(value="2") 第2周
+            option(value="3") 第3周
+            option(value="4") 第4周
+            option(value="5") 第5周
+            option(value="6") 第6周
+            option(value="7") 第7周
+            option(value="8") 第8周
+            option(value="9") 第9周
+            option(value="10") 第10周
+            option(value="11") 第11周
+            option(value="12") 第12周
+            option(value="13") 第13周
+            option(value="14") 第14周
+            option(value="15") 第15周
+            option(value="16") 第16周
+            option(value="17") 第17周
+            option(value="18") 第18周
+            option(value="19") 第19周
+      .form-group
+        .col-sm-offset-6.col-sm-6
+        button.btn.btn-info(type="submit" style="margin-left:70%") 录入
