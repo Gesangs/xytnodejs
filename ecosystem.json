@@ -16,7 +16,7 @@
             "port": "9548",
             "ref": "origin/master",
             "repo": "git@github.com:Gesangs/xytnodejs.git",
-            "path": "/www/xyt/production",
+            "path": "www/xyt/production",
             "ssh_option": "StrictHostKeyCheking=no",
             "post-deploy": "npm install && pm2 startOrRestart ecosystem.json --env production",
             "env": {
