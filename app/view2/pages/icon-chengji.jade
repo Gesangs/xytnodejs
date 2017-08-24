@@ -18,27 +18,27 @@ block content
             input#inputCountry.form-control(type="text", name="cj[number]")
         .form-group
           .col-sm-offset-6.col-sm-6
-          button.btn.btn-info(type="submit" style="margin-left:70%") 查询
+          button.btn.btn-info(type="submit" style="margin-left:45%") 查询
       if zkz
         div#fenshu
           form.form-horizontal
           .form-group
-            label.col-xs-4.control-label(for="inputTitle") 准考证号
-            .col-xs-8
+            label.col-xs-4.control-label(for="inputTitle") 准考证
+            .col-xs-6
               input#inputDoctor.form-control(type="text", value="#{zkz}")
           .form-group
             label.col-xs-4.control-label(for="inputDoctor") 总分
-            .col-xs-8
+            .col-xs-6
               input#inputDoctor.form-control(type="text", value="#{zf}")
           .form-group
             label.col-xs-4.control-label(for="inputCountry") 听力
-            .col-xs-8
+            .col-xs-6
               input#inputCountry.form-control(type="text", value="#{tl}")
           .form-group
             label.col-xs-4.control-label(for="inputCountry") 阅读
-            .col-xs-8
+            .col-xs-6
               input#inputCountry.form-control(type="text", value="#{yd}")
           .form-group
             label.col-xs-4.control-label(for="inputCountry") 写作
-            .col-xs-8
+            .col-xs-6
               input#inputCountry.form-control(type="text", value="#{xz}")
