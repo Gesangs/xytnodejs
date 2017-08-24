@@ -31,4 +31,5 @@ app.get('/admin/course',User.adminRequired, User.signinRequired, Course.admin);
 app.post('/admin/course/insert', Course.adminsave);
 app.post('/xuanke/insert', Course.xuankesave)
 app.post('/wode/update',User.saveTouxiang, User.wodeupdate);
+app.post('/chengji',Course.seek)
 }

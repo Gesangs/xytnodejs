@@ -1,5 +1,4 @@
-window.onload = function() {
-	(function() {
+(function() {
 	var Sidebar = function(mId, closeBarId) {
 		this.statu = 'closed';
 		this.el = document.getElementById('sidebar')
@@ -19,10 +18,9 @@ window.onload = function() {
 		this.el.style.left = '0';
 		this.closeBarEl.className = 'closebar-move-left'
 		this.statu = 'closed';
-		this.MEl.className = 'mask-left';
 		this.el.className = "sidebar-move-left";
 		var mask = this.MEl;
-		setTimeout(function(){mask.style.display= 'none';},400);
+		$(mask).fadeOut();
 	};
 	Sidebar.prototype.open = function(){
 		console.log("open!");
@@ -30,8 +28,8 @@ window.onload = function() {
 		this.el.className = "sidebar-move-right";
 		this.closeBarEl.className = 'closebar-move-right'
 		this.statu = 'opend';
-		this.MEl.style.display= 'block';
-		this.MEl.className = 'mask-right';
+		var mask = this.MEl;
+		$(mask).fadeIn();
 	};
 	Sidebar.prototype.triggerSwitch = function() {
 		if(this.statu === 'closed') {
@@ -42,4 +40,3 @@ window.onload = function() {
 	};
 	var sidebar = new Sidebar();
 })()
-}

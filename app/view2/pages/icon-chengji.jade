@@ -1,2 +1,44 @@
 extends ../layout
 block content
+    .container
+      form.form-horizontal(method="post", action="/chengji")
+        .form-group
+          label.col-xs-4.control-label(for="inputTitle") 四六级
+          .col-xs-8
+            select#inputLanguage.form-control.selectpicker(type="text", name="cj[level]", title="-- 请选择 --")
+              option(value="1") 四级
+              option(value="2") 六级
+        .form-group
+          label.col-xs-4.control-label(for="inputDoctor") 姓名
+          .col-xs-8
+            input#inputDoctor.form-control(type="text", name="cj[name]")
+        .form-group
+          label.col-xs-4.control-label(for="inputCountry") 身份证
+          .col-xs-8
+            input#inputCountry.form-control(type="text", name="cj[number]")
+        .form-group
+          .col-sm-offset-6.col-sm-6
+          button.btn.btn-info(type="submit" style="margin-left:70%") 查询
+      if zkz
+        div#fenshu
+          form.form-horizontal
+          .form-group
+            label.col-xs-4.control-label(for="inputTitle") 准考证号
+            .col-xs-8
+              input#inputDoctor.form-control(type="text", value="#{zkz}")
+          .form-group
+            label.col-xs-4.control-label(for="inputDoctor") 总分
+            .col-xs-8
+              input#inputDoctor.form-control(type="text", value="#{zf}")
+          .form-group
+            label.col-xs-4.control-label(for="inputCountry") 听力
+            .col-xs-8
+              input#inputCountry.form-control(type="text", value="#{tl}")
+          .form-group
+            label.col-xs-4.control-label(for="inputCountry") 阅读
+            .col-xs-8
+              input#inputCountry.form-control(type="text", value="#{yd}")
+          .form-group
+            label.col-xs-4.control-label(for="inputCountry") 写作
+            .col-xs-8
+              input#inputCountry.form-control(type="text", value="#{xz}")

@@ -9,7 +9,7 @@ var bodyParser = require('body-parser')
 var morgan = require('morgan');
 var path = require('path');
 var port=process.env.PORT || 3000
-var env = process.ev.NODE_ENV || 'development'
+var env = process.env.NODE_ENV || 'development'
 var dbUrl = 'mongodb://guodong_xyt_runner:F**K9001$@127.0.0.1:19999/guodong';
 if(env === 'development') {
     dbUrl = 'mongodb://localhost:27017/guodong';

@@ -18,6 +18,7 @@ exports.signup = function(req, res) {
 				if(err) {
 			console.log(err)
 			}
+			req.flash('error','注册成功');
 			res.redirect('/')
 		})
 		}
@@ -97,7 +98,7 @@ exports.saveTouxiang = function(req, res, next) {
 			var txname = user.username
 			var type = txdata.type.split('/')[1]
 			var touxiang = txname + '.' + type
-			var newPath = path.join(__dirname, '../../', 'bower_components/touxiang/' + touxiang)
+			var newPath = path.join(__dirname, '../../', 'public/touxiang/' + touxiang)
 
 			fs.writeFile(newPath, data, function(err) {
 				req.touxiang = touxiang

@@ -1,35 +1,36 @@
 extends ../layout
 block content
   .container
-    .weekday.clearfix
-      a.glyphicon.glyphicon-chevron-left(href="/icon-ht-class/pre")
-      div#today(href="/icon-ht-class")
-        b #{week}
-        i 第#{weekth}周
-      a.glyphicon.glyphicon-chevron-right(href="/icon-ht-class/next")
     .row
-      table.table.table-hover.table-bordered.courseTable
-        thead
-          tr.line
-            th 节次
-            th 课程
-            th 地点
-            th 老师
-        tbody
-          each item in courses
+      .weekday.clearfix
+        a.glyphicon.glyphicon-chevron-left(href="/icon-ht-class/pre")
+        div#today(href="/icon-ht-class")
+          b #{week}
+          i 第#{weekth}周
+        a.glyphicon.glyphicon-chevron-right(href="/icon-ht-class/next")
+      .row
+        table.table.table-hover.table-bordered.courseTable
+          thead
             tr.line
-              td(colspan='4')
-            tr
-              td #{item.kebiao.jieci}
-              td #{item.kebiao.cname}
-              td #{item.kebiao.point}
-              td #{item.kebiao.teacher}
-          each useritem in usercourses
-            tr.line
-              td(colspan='4')
-            tr
-              td #{useritem.jieci}
-              td #{useritem.cname}
-              td #{useritem.point}
-              td #{useritem.teacher}
+              th 节次
+              th 课程
+              th 地点
+              th 老师
+          tbody
+            each item in courses
+              tr.line
+                td(colspan='4')
+              tr
+                td #{item.kebiao.jieci}
+                td #{item.kebiao.cname}
+                td #{item.kebiao.point}
+                td #{item.kebiao.teacher}
+            each useritem in usercourses
+              tr.line
+                td(colspan='4')
+              tr
+                td #{useritem.jieci}
+                td #{useritem.cname}
+                td #{useritem.point}
+                td #{useritem.teacher}
 

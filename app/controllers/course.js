@@ -3,6 +3,8 @@ var Course = require('../models/course.js');
 var User = require('../models/user.js');
 var userCourse = require('../models/usercourse.js')
 var moment = require('moment');
+var querystring = require("querystring");
+var http = require('http')
 
 // home page
 exports.homepage = function(req,res){
@@ -103,7 +105,7 @@ exports.nextcourse = function(req,res){
 
 // chengji page
 exports.chengji = function(req,res){
-	res.render('icon-chengji')
+	res.render('icon-chengji', {title: '查询成绩'})
 }
 
 // kaoshi page
@@ -215,3 +217,62 @@ exports.xuankesave = function(req,res){
 			res.redirect('/');
 		});
 	}
+
+exports.seek = function(req, res) {
+	var msg = req.body.cj;
+    var wholeData;
+	var postData = querystring.stringify({
+    "name": msg.name,
+    "level":msg.level,
+    "id_num": msg.number
+})
+var  options = {
+    hostname: 'ecjtu.org',
+    port: 80,
+    path: '/cet/cet.php',
+    method: 'POST',
+    headers: {
+        'Accept': '*/*',
+        'Accept-Language': 'zh-CN,zh;q=0.8',
+        'Content-Length': postData.length,
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Cookie': 'UM_distinctid=15cdd0862083c9-0c2fcf1405f5dc-396b4e08-e1000-15cdd08620965f',
+        'Host': 'ecjtu.org',
+        'Origin': 'http://ecjtu.org',
+        'Proxy-Connection': 'keep-alive',
+        'Referer': 'http://ecjtu.org/cet/',
+        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1',
+        'X-Requested-With': 'XMLHttpRequest'
+    }
+
+};
+var qwe = http.request(options, function(asd) {
+    var buffers = [];
+    console.log('Status: ' + asd.statusCode)
+    console.log('headers: ' + JSON.stringify(asd.headers))
+    asd.on('data', function(chunk) {
+        console.log(Buffer.isBuffer(chunk));
+        buffers.push(chunk);
+    })
+
+    asd.on('end', function() {
+        console.log("结束！")
+        wholeData = Buffer.concat(buffers);
+        wholeData = JSON.parse(wholeData)
+        wholeData = wholeData.data.w_test
+        console.log('content' + wholeData);
+        res.render('icon-chengji', {
+            zkz: wholeData.crtNum,
+            zf: wholeData.total,
+            tl: wholeData.listen,
+            yd: wholeData.reading,
+            xz: wholeData.writing
+          })
+    })
+})
+qwe.on('error', function(e) {
+    console.log(e.message)
+})
+qwe.write(postData)
+qwe.end()
+}
