@@ -17,8 +17,8 @@
             "ref": "origin/master",
             "repo": "git@github.com:Gesangs/xytnodejs.git",
             "path": "www/xyt/production",
-            "ssh_option": "StrictHostKeyCheking=no",
-            "post-deploy": "npm install && pm2 startOrRestart ecosystem.json --env production",
+            "ssh_options": "StrictHostKeyCheking=no",
+            "post-deploy": "npm install --registry=https://registry.npm.taobao.org && pm2 startOrRestart ecosystem.json --env production",
             "env": {
                 "NODE_ENV": "production"
             }
