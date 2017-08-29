@@ -1,0 +1,13 @@
+extends ../layout
+block content
+    div.panel.panel-default.warp
+      input(type="hidden", value="#{user.touxiang}", name="userTx")
+      .panel-heading.displayHeader
+        img.pull-left.chatImg(src="/touxiang/Baymax.jpg",style="margin-right:20px;")
+        h4 小白
+      .panel-body.displayBody#msgContent
+      div.writeArea
+        .input-group
+          input.form-control(type="text", placeholder="说点什么呗...", id="inputArea")
+          span.input-group-btn
+            button.btn.btn-primary(type="button") 提交

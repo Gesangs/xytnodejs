@@ -181,3 +181,7 @@ exports.wodeupdate = function(req,res){
 	})
 	return res.redirect('/icon-wode')
 }
+
+exports.chat = function(req,res){
+	res.render('icon-chat', {title: '聊天机器人'})
+}

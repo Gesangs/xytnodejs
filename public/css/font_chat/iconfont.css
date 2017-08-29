@@ -1,0 +1,18 @@
+
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1503983814211'); /* IE9*/
+  src: url('iconfont.eot?t=1503983814211#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1503983814211') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1503983814211') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1503983814211#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-chat:before { content: "\e600"; font-size: 50px;}
+

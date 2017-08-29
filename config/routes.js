@@ -25,6 +25,8 @@ app.get('/icon-fankui',  Message.fankui)
 app.post('/user/message', User.signinRequired, Message.save)
 app.get('/icon-kaoshi', User.findRequired, User.signinRequired, Course.kaoshi)
 app.get('/icon-wode', User.signinRequired, User.wode)
+app.get('/icon-chat', User.chat)
+
 	/*** 录入 ***/
 app.get('/icon-xuankebaoming',User.findRequired, User.signinRequired, Course.xuanke)
 app.get('/admin/course',User.adminRequired, User.signinRequired, Course.admin);

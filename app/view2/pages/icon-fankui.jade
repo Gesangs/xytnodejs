@@ -36,6 +36,7 @@ block content
               div#MessageForm
                 form#messageForm(method="POST", action="/user/message")
                   input(type="hidden",name="message[from]", value="#{user._id}")
-                  .form-group
-                    textarea.form-control(name="message[content]",row="3")
-                  button.btn.btn-primary.pull-right(type='submit') 提交
+                  .input-group
+                    input.form-control(type="text", name="message[content]", placeholder="说点什么呗...")
+                    span.input-group-btn
+                      button.btn.btn-primary(type="button") 提交
