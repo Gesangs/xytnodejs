@@ -50,7 +50,7 @@ $(function() {
 		}
 
 		setTimeout(function(){
-			$('textarea').select().focus()
+			$('.input-group input').select().focus()
 		}, 0)
 	})
 })
