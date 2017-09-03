@@ -43,7 +43,7 @@ exports.todaycourse = function(req,res){
 		var _user = req.session.user;
 		now = moment();
 		time = swapWeek(moment(now).format('d'));res.locals.time = time;
-    	weekths = (moment(now).format('w') - moment([2017,6,21 ]).format('w')).toString();
+    	weekths = (moment(now).format('w') - moment([2017,8,4]).format('w') + 1).toString();
     		User.findOne({_id:_user._id}, function(err, user) {
     			Course.fetch(user.zhuanye, user.banji, time, weekths, function(err, courses) {
     				userCourse.fetch(user.username, time, function(err, usercourses) {
@@ -64,7 +64,7 @@ exports.precourse = function(req,res){
 		var user = req.session.user
 		now = moment(now).subtract(1,"d");
 		time = swapWeek(moment(now).format('d'));
-    	weekths = (moment(now).format('w') - moment([2017,6,21 ]).format('w')).toString();
+    	weekths = (moment(now).format('w') - moment([2017,8,4]).format('w') + 1).toString();
     	User.findOne({_id:user._id}, function(err, user) {
 			Course.fetch(user.zhuanye, user.banji, time, weekths, function(err,courses) {
 				userCourse.fetch(user.username, time, function(err, usercourses) {
@@ -85,7 +85,7 @@ exports.nextcourse = function(req,res){
 		var user = req.session.user
 		now = moment(now).add(1,"d");
 		time = swapWeek(moment(now).format('d'));
-    	weekths = (moment(now).format('w') - moment([2017,6,21 ]).format('w')).toString();
+    	weekths = (moment(now).format('w') - moment([2017,8,4]).format('w') + 1).toString();
     	User.findOne({_id:user._id}, function(err, user) {
     		Course.fetch(user.zhuanye, user.banji, time, weekths, function(err,courses) {
     			userCourse.fetch(user.username, time, function(err, usercourses) {

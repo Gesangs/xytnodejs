@@ -16,7 +16,7 @@ html
         img(src="/touxiang/default.png")
       form(action="/user/signin", method="POST", accept-charset="utf-8")
         label(for="signinUsername")
-        input#signinUsername.inpu(type="text", placeholder="账号/学号", name="user[username]")
+        input#signinUsername.inpu(type="text", placeholder="学号", name="user[xuehao]")
         label(for="signinPassword")
         input#signinPassword.inpu(type="password", placeholder="密码", name="user[password]")
         .inpu
@@ -31,11 +31,11 @@ html
         .modal-header 注册
         .modal-body
           .form-group
-            label(for="signupName") 账号
-            input#signupName.form-control(name="user[username]", type="text")
+            label.tixing(for="signupName") 学号
+            input#signupName.form-control(name="user[xuehao]", type="text")
           .form-group
-            label(for="signupPassword") 密码
-            input#signupPassword.form-control(name="user[password]", type="text")
+            label.tixing(for="signupPassword") 密码
+            input#signupPassword.form-control(name="user[password]", type="password")
           .modal-footer
             span #{warning}
             button.btn.btn-success(type="submit") 提交

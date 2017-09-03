@@ -4,16 +4,20 @@ var path = require('path')
 // signup
 exports.signup = function(req, res) {
 	var _user = req.body.user;
-	User.findOne({username: _user.username}, function(err,user) {
+	User.findOne({xuehao: _user.xuehao}, function(err,user) {
 		if(err) {
 			console.log(err)
 		}
 		if(user) {
-			req.flash('error','此用户名已被占用');
+			req.flash('error','此学号已被注册');
 			return res.redirect('/')
 		}
 		else {
-			var user = new User(_user)
+			var user = new User({
+				xuehao: _user.xuehao,
+				username: _user.xuehao,
+				password: _user.password
+			})
 			user.save(function(err, user) {
 				if(err) {
 			console.log(err)
@@ -27,15 +31,15 @@ exports.signup = function(req, res) {
 //signin
 exports.signin = function(req, res) {
 	var _user = req.body.user;
-	var name = _user.username;
+	var xuehao = _user.xuehao;
 	var password = _user.password;
-	User.findOne({username: name}, function(err, user) {
+	User.findOne({xuehao: xuehao}, function(err, user) {
 		if(err) {
 			console.log(err)
 		}
 
 		if(!user) {
-			req.flash('error','用户名不存在');
+			req.flash('error','学号不存在');
 			return res.redirect('/')
 		}
 
@@ -83,6 +87,7 @@ exports.findRequired = function(req, res, next) {
 exports.adminRequired = function(req, res, next) {
 	var user = req.session.user;
 		if(typeof(user.role) === 'undefined' || user.role === "" || user.role <= 10) {
+			console.log(user.role);
 		return res.redirect('/')
 		}
 	next()
@@ -129,11 +134,23 @@ exports.wode = function(req,res){
   })
 }
 
+exports.checkName = function(req, res) {
+	var user = req.body.username;
+	User.findOne({uesrname: user}, function(err, user) {
+		if(err) {
+			log(err);
+		}
+		if(user) {
+			res.render("该昵称被占用！")
+		}
+	})
+}
+
 exports.wodeupdate = function(req,res){
 	var user = req.session.user;
 	var _user = req.body.user;
 	var id = user._id;
-	var xuehao = _user.xuehao
+	var username = _user.username
 	var zhuanye = _user.zhuanye
 	var banji = _user.banji
 	var sex = _user.sex;
@@ -166,7 +183,7 @@ exports.wodeupdate = function(req,res){
 		    }
 		  })
 	}
-		User.update({_id:id}, {$set:{xuehao:xuehao}}, function(err, user) {
+		User.update({_id:id}, {$set:{username:username}}, function(err, user) {
 		    if (err) {
 		      console.log(err)
 
@@ -185,3 +202,4 @@ exports.wodeupdate = function(req,res){
 exports.chat = function(req,res){
 	res.render('icon-chat', {title: '聊天机器人'})
 }
+

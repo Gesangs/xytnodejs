@@ -9,13 +9,14 @@ block content
       div#xiugai
         form.form-horizontal(method="post", action="/wode/update", enctype="multipart/form-data")
           .form-group
-            label.col-xs-4.control-label(for="inputTitle") 账户名
-            .col-xs-6
-              span #{user.username}
-          .form-group
             label.col-xs-4.control-label(for="inputXuehao") 学号
             .col-xs-6
-              input#inputXuehao.form-control(type="text", name="user[xuehao]", value="#{user.xuehao}")
+              span#inputXuehao #{user.xuehao}
+          .form-group
+            label.col-xs-4.control-label(for="inputName") 昵称
+            .col-xs-6
+              input#check(type="hidden", data-ss="#{user.username}")
+              input#inputName.form-control(type="text", name="user[username]", value="#{user.username}")
           .form-group
             label.col-xs-4.control-label(for="uploadTouxiang") 上传头像
             .col-xs-6
@@ -44,13 +45,13 @@ block content
       div#zhanshi
         form.form-horizontal
             .form-group
-              label.col-xs-4.control-label(for="inputTitle") 账户名
-              .col-xs-6
-                span.form-control #{user.username}
-            .form-group
               label.col-xs-4.control-label(for="inputXuehao") 学号
               .col-xs-6
                 span.form-control #{user.xuehao}
+            .form-group
+              label.col-xs-4.control-label(for="inputTitle") 昵称
+              .col-xs-6
+                span.form-control #{user.username}
             .form-group
               label.col-xs-4.control-label(for="inputProfess") 专业
               .col-xs-6

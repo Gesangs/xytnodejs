@@ -88,3 +88,66 @@ $(function(){
         $("#xiugai").show();
     })
 })
+
+//昵称验证
+$(function() {
+    var $name = $("#inputName");
+    if($name.val() !== $("#check").data("ss")) {
+        var data = {"username": $name.val()};
+        $name.blur(function() {
+            $.ajax({
+                type: 'POST',
+                url: "/check",
+                data: data,
+                dataType: 'json'
+            }, function(data) {
+                $name.append(data);
+            })
+
+    });
+  }
+})
+
+//账号限制
+$(function() {
+    var tixing;
+    $("#signupName").blur(function() {
+        var xuehao = $("#signupName").val().slice(0, 8);
+        if(xuehao !== '70208150') {
+            $($(".tixing")[0]).children('span').remove();
+            if($("#signupName").val()) {
+                tixing = '请用学号注册';
+            }else {
+                tixing = "请输入学号";
+            }
+            var html = '<span style="color:red;">'+ tixing + '</span>';
+            $($(".tixing")[0]).append(html);
+        }else{
+            $($(".tixing")[0]).children('span').remove();
+            tixing = "";
+        }
+    });
+
+    $("#signupPassword").blur(function() {
+        var len = $("#signupPassword").val().length;
+        if(len < 6) {
+            $($(".tixing")[1]).children('span').remove();
+            if($("#signupPassword").val()) {
+                tixing = '密码至少6位';
+            }else {
+                tixing = "请输入密码";
+            }
+            var html = '<span style="color:red;">'+ tixing + '</span>';
+            $($(".tixing")[1]).append(html);
+        }else{
+            $($(".tixing")[1]).children('span').remove();
+            tixing = "";
+        }
+    });
+
+    $(".btn-success").click(function() {
+        if(tixing) {
+            return false;
+        }
+    })
+})

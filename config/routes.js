@@ -14,6 +14,7 @@ app.get('/', Index.index)
 app.post('/user/signup', User.signup)
 app.post('/user/signin', User.signin)
 app.get('/logout', User.logout)
+app.post('/check', User.checkName)
 	/*** 课程 ***/
 app.get('/content', Course.homepage)
 	// course page
@@ -21,11 +22,11 @@ app.get('/icon-ht-class', User.findRequired, User.signinRequired, Course.todayco
 app.get('/icon-ht-class/pre', User.findRequired, User.signinRequired, Course.precourse);
 app.get('/icon-ht-class/next', User.findRequired, User.signinRequired, Course.nextcourse);
 app.get('/icon-chengji', User.findRequired, User.signinRequired, Course.chengji)
-app.get('/icon-fankui',  Message.fankui)
+app.get('/icon-fankui', User.signinRequired, Message.fankui)
 app.post('/user/message', User.signinRequired, Message.save)
 app.get('/icon-kaoshi', User.findRequired, User.signinRequired, Course.kaoshi)
 app.get('/icon-wode', User.signinRequired, User.wode)
-app.get('/icon-chat', User.chat)
+app.get('/icon-chat', User.signinRequired, User.chat)
 
 	/*** 录入 ***/
 app.get('/icon-xuankebaoming',User.findRequired, User.signinRequired, Course.xuanke)

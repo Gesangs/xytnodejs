@@ -12,11 +12,11 @@ var UserSchema = new mongoose.Schema({
 		type:Number,
 		default:0
 	},
-	xuehao:{
+	zhuanye:{
 		type:String,
 		default:''
 	},
-	zhuanye:{
+	xuehao:{
 		type:String,
 		default:null
 	},
