@@ -147,21 +147,21 @@ exports.admin = function(req,res){
 //admin post course
 exports.adminsave = function(req,res){
 	var courseObj = req.body.course;
-	var couseweekth = new Array(courseObj.cweekth);
-		switch (couseweekth[0]) {
+	//var couseweekth = new Array(courseObj.cweekth);
+		switch (courseObj.cweekth[0]) {
 			case '000':
 				for(var i=1;i<=15;i++) {
-			couseweekth.push(i.toString());
+			courseObj.cweekth.push(i.toString());
 		}
 				break;
 			case '111':
 				for(var i=1;i<=15;i+=2) {
-			couseweekth.push(i.toString());
+			courseObj.cweekth.push(i.toString());
 		}
 				break;
 			case '222':
 				for(var i=0;i<=15;i+=2) {
-			couseweekth.push(i.toString());
+			courseObj.cweekth.push(i.toString());
 		}
 				break;
 		}
@@ -173,7 +173,7 @@ exports.adminsave = function(req,res){
 				cweek: courseObj.cweek,
 				teacher: courseObj.teacher,
 				point: courseObj.point,
-				cweekth: couseweekth
+				cweekth: courseObj.cweekth
 			}
 			course.kebiao.push(kebiao);
 			course.save(function(err, course) {

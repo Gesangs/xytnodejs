@@ -146,7 +146,7 @@ $(function() {
     });
 
     $(".btn-success").click(function() {
-        if(tixing) {
+        if($(".tixing").length >= 0) {
             return false;
         }
     })

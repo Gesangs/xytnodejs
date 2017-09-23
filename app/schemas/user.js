@@ -16,10 +16,7 @@ var UserSchema = new mongoose.Schema({
 		type:String,
 		default:''
 	},
-	xuehao:{
-		type:String,
-		default:null
-	},
+	xuehao: String,
 	banji:{
 		type:Number,
 		default:null

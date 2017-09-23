@@ -16,7 +16,7 @@
             "port": "9548",
             "ref": "origin/master",
             "repo": "git@github.com:Gesangs/xytnodejs.git",
-            "path": "www/xyt/production",
+            "path": "/www/xyt/production",
             "post-deploy": "npm install --registry=https://registry.npm.taobao.org && pm2 startOrRestart ecosystem.json --env production",
             "env": {
                 "NODE_ENV": "production"
