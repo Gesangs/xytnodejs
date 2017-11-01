@@ -13,7 +13,6 @@
 		});
 	};
 	Sidebar.prototype.close = function(){
-		console.log('close!');
 		this.el.style.left = '0';
 		this.el.className = "sidebar-move-left";
 		this.closeBarEl.className = 'closebar-move-left';
@@ -21,7 +20,6 @@
 		this.statu = 'closed';
 	};
 	Sidebar.prototype.open = function(){
-		console.log("open!");
 		this.el.style.left = '-22rem';
 		this.el.className = "sidebar-move-right";
 		this.closeBarEl.className = 'closebar-move-right';
