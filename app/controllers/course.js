@@ -1,59 +1,35 @@
-var mongoose = require('mongoose')
-var Course = require('../models/course.js');
-var User = require('../models/user.js');
-var userCourse = require('../models/usercourse.js')
-var moment = require('moment');
-var querystring = require("querystring");
-var http = require('http')
+let mongoose = require('mongoose')
+let Course = require('../models/course.js');
+let User = require('../models/user.js');
+let userCourse = require('../models/usercourse.js')
+let moment = require('moment');
+let querystring = require("querystring");
+let http = require('http')
 
 // home page
 exports.homepage = function(req,res){
-	res.render('homepage',{title: '果冻校园通'})
+	res.render('homepage',{title: '个人校园'})
 }
 
-function swapWeek(time){
-		switch (time) {
-		case '0':
-			time = '周日';
-			break;
-		case '1':
-			time = '周一';
-			break;
-		case '2':
-			time = '周二';
-			break;
-		case '3':
-			time = '周三';
-			break;
-		case '4':
-			time = "周四";
-			break;
-		case '5':
-			time = '周五';
-			break;
-		case '6':
-			time = '周六';
-			break;
-		}
-		return time;
-	}
-	var now;var time;var weekths;
+const swapWeek = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+
+let now;let time;let weekths;
 // course page
 exports.todaycourse = function(req,res){
-		var _user = req.session.user;
+		let _user = req.session.user;
 		now = moment();
-		time = swapWeek(moment(now).format('d'));res.locals.time = time;
+		time = swapWeek[moment(now).format('d')];res.locals.time = time;
     	weekths = (moment(now).format('w') - moment([2017,8,4]).format('w') + 1).toString();
     		User.findOne({_id:_user._id}, function(err, user) {
     			Course.fetch(user.zhuanye, user.banji, time, weekths, function(err, courses) {
     				userCourse.fetch(user.username, time, function(err, usercourses) {
     					if(err) {
-    					console.log(err)
+    						console.log(err)
     					}
     					res.render('icon-ht-class',{
 							week:time,
 							weekth:weekths,
-							courses:courses,
+							courses:courses || [],
 							usercourses:usercourses
 	    			})
     			})
@@ -61,9 +37,9 @@ exports.todaycourse = function(req,res){
   		})
 	};
 exports.precourse = function(req,res){
-		var user = req.session.user
+		let user = req.session.user
 		now = moment(now).subtract(1,"d");
-		time = swapWeek(moment(now).format('d'));
+		time = swapWeek[moment(now).format('d')];
     	weekths = (moment(now).format('w') - moment([2017,8,4]).format('w') + 1).toString();
     	User.findOne({_id:user._id}, function(err, user) {
 			Course.fetch(user.zhuanye, user.banji, time, weekths, function(err,courses) {
@@ -74,7 +50,7 @@ exports.precourse = function(req,res){
 					res.render('icon-ht-class',{
 						week:time,
 						weekth:weekths,
-						courses:courses,
+						courses:courses || [],
 						usercourses:usercourses
 				    })
 			    })
@@ -82,9 +58,9 @@ exports.precourse = function(req,res){
         })
 	};
 exports.nextcourse = function(req,res){
-		var user = req.session.user
+		let user = req.session.user
 		now = moment(now).add(1,"d");
-		time = swapWeek(moment(now).format('d'));
+		time = swapWeek[moment(now).format('d')];
     	weekths = (moment(now).format('w') - moment([2017,8,4]).format('w') + 1).toString();
     	User.findOne({_id:user._id}, function(err, user) {
     		Course.fetch(user.zhuanye, user.banji, time, weekths, function(err,courses) {
@@ -95,7 +71,7 @@ exports.nextcourse = function(req,res){
 					res.render('icon-ht-class',{
 						week:time,
 						weekth:weekths,
-						courses:courses,
+						courses:courses || [],
 						usercourses:usercourses
 				    })
 			    })
@@ -146,28 +122,26 @@ exports.admin = function(req,res){
 };
 //admin post course
 exports.adminsave = function(req,res){
-	var courseObj = req.body.course;
-	//var couseweekth = new Array(courseObj.cweekth);
+	let courseObj = req.body.course;
+	courseObj.cweekth = Array.isArray(courseObj.cweekth) ? courseObj.cweekth : [courseObj.cweekth];
 		switch (courseObj.cweekth[0]) {
-			case '000':
-				for(var i=1;i<=15;i++) {
-			courseObj.cweekth.push(i.toString());
-		}
-				break;
+			case '000': 
+				for(let i=1;i<=15;i++) {
+					courseObj.cweekth.push(i.toString());
+				} break;
 			case '111':
-				for(var i=1;i<=15;i+=2) {
-			courseObj.cweekth.push(i.toString());
-		}
-				break;
+				for(let i=1;i<=15;i+=2) {
+					courseObj.cweekth.push(i.toString());
+				} break;
 			case '222':
-				for(var i=0;i<=15;i+=2) {
-			courseObj.cweekth.push(i.toString());
-		}
-				break;
+				for(let i=0;i<=15;i+=2) {
+					courseObj.cweekth.push(i.toString());
+				} break;
 		}
 		if(courseObj.cname && courseObj.teacher) {
 		Course.findOne({zhuanye: courseObj.zhuanye, banji: courseObj.banji}, function(err, course) {
-			var kebiao = {
+			course = course || new Course({zhuanye: courseObj.zhuanye, banji: courseObj.banji})
+			let kebiao = {
 				cname: courseObj.cname,
 				jieci: courseObj.jieci,
 				cweek: courseObj.cweek,
@@ -185,7 +159,7 @@ exports.adminsave = function(req,res){
 		})
 	}
 	else {
-		var course = new Course({
+		let course = new Course({
 			zhuanye: courseObj.zhuanye,
 			banji: courseObj.banji
 		});
@@ -199,9 +173,9 @@ exports.adminsave = function(req,res){
 };
 
 exports.xuankesave = function(req,res){
-	var user = req.session.user;
-	var courseObj1 = req.body.usercourse;
-	var _usercourse = null;
+	let user = req.session.user;
+	let courseObj1 = req.body.usercourse;
+	let _usercourse = null;
 	_usercourse = new userCourse({
 			user: user.username,
 			cname: courseObj1.cname,
@@ -219,14 +193,14 @@ exports.xuankesave = function(req,res){
 	}
 
 exports.seek = function(req, res) {
-	var msg = req.body.cj;
-    var wholeData;
-	var postData = querystring.stringify({
+	let msg = req.body.cj;
+    let wholeData;
+	let postData = querystring.stringify({
     "name": msg.name,
     "level":msg.level,
     "id_num": msg.number
 })
-var  options = {
+let  options = {
     hostname: 'ecjtu.org',
     port: 80,
     path: '/cet/cet.php',
@@ -246,8 +220,8 @@ var  options = {
     }
 
 };
-var qwe = http.request(options, function(asd) {
-    var buffers = [];
+let qwe = http.request(options, function(asd) {
+    let buffers = [];
     console.log('Status: ' + asd.statusCode)
     console.log('headers: ' + JSON.stringify(asd.headers))
     asd.on('data', function(chunk) {

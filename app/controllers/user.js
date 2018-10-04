@@ -5,24 +5,19 @@ var path = require('path')
 exports.signup = function(req, res) {
 	var _user = req.body.user;
 	User.findOne({xuehao: _user.xuehao}, function(err,user) {
-		if(err) {
-			console.log(err)
-		}
+		if(err) console.log(err)
 		if(user) {
 			req.flash('error','此学号已被注册');
 			return res.redirect('/')
-		}
-		else {
+		} else {
 			var user = new User({
 				xuehao: _user.xuehao,
 				username: _user.xuehao,
 				password: _user.password
 			})
 			user.save(function(err, user) {
-				if(err) {
-			console.log(err)
-			}
-			req.flash('error','注册成功');
+			if(err) console.log(err)
+			req.flash('info','注册成功');
 			res.redirect('/')
 		})
 		}
@@ -34,26 +29,19 @@ exports.signin = function(req, res) {
 	var xuehao = _user.xuehao;
 	var password = _user.password;
 	User.findOne({xuehao: xuehao}, function(err, user) {
-		if(err) {
-			console.log(err)
-		}
-
+		if(err) console.log(err)
 		if(!user) {
 			req.flash('error','学号不存在');
 			return res.redirect('/')
 		}
-
 		user.comparePassword(password, function(err, isMatch) {
-			if(err){
-				console.log(err)
-			}
+			if(err) console.log(err)
 			if(isMatch) {
 				console.log('yes!')
 				req.flash('info','登录成功');
 				req.session.user = user;
 				return res.redirect('/content')
-			}
-			else{
+			} else{
 				req.flash('error','密码错误');
 				console.log('error!')
 				return res.redirect('/')
@@ -155,44 +143,23 @@ exports.wodeupdate = function(req,res){
 	var banji = _user.banji
 	var sex = _user.sex;
 	var touxiang = req.touxiang
-	if(typeof(touxiang) !== "undefined") {
-		User.update({_id:id}, {$set:{touxiang:touxiang}}, function(err, user) {
-		    if (err) {
-		      console.log(err)
-		    }
-		  })
-	}
-	if(zhuanye !== "") {
-		User.update({_id:id}, {$set:{zhuanye:zhuanye}}, function(err, user) {
-		    if (err) {
-		      console.log(err)
-		    }
-		  })
-	}
-	if(banji !== "") {
-		User.update({_id:id}, {$set:{banji:banji}}, function(err, user) {
-		    if (err) {
-		      console.log(err)
-		    }
-		  })
-	}
-	if(sex !== "") {
-		User.update({_id:id}, {$set:{sex:sex}}, function(err, user) {
-		    if (err) {
-		      console.log(err)
-		    }
-		  })
-	}
-		User.update({_id:id}, {$set:{username:username}}, function(err, user) {
-		    if (err) {
-		      console.log(err)
-
-		    }
-		  })
+	typeof(touxiang) !== "undefined" && User.update({_id:id}, {$set:{touxiang:touxiang}}, function(err, user) {
+		if (err) console.log(err)
+	})
+	zhuanye !== "" && User.update({_id:id}, {$set:{zhuanye:zhuanye}}, function(err, user) {
+		if (err) console.log(err)
+	})
+	banji !== "" && User.update({_id:id}, {$set:{banji:banji}}, function(err, user) {
+		if (err) console.log(err)
+	})
+	sex !== "" && User.update({_id:id}, {$set:{sex:sex}}, function(err, user) {
+		if (err) console.log(err)
+	})
+	User.update({_id:id}, {$set:{username:username}}, function(err, user) {
+		if (err) console.log(err)
+	})
 	User.findOne({_id:id}, function(err, user){
-		if(err) {
-			console.log(err);
-		}
+		if(err) console.log(err);
 		req.session.user = user;
 		req.session.save();
 	})

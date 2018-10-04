@@ -30,7 +30,7 @@ app.get('/icon-chat', User.signinRequired, User.chat)
 
 	/*** 录入 ***/
 app.get('/icon-xuankebaoming',User.findRequired, User.signinRequired, Course.xuanke)
-app.get('/admin/course',User.adminRequired, User.signinRequired, Course.admin);
+app.get('/admin/course',User.signinRequired, Course.admin);
 app.post('/admin/course/insert', Course.adminsave);
 app.post('/xuanke/insert', Course.xuankesave)
 app.post('/wode/update',User.saveTouxiang, User.wodeupdate);

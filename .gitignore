@@ -57,3 +57,10 @@ typings/
 # dotenv environment variables file
 .env
 
+.package-lock.json
+
+public/libs/
+
+public/touxiang/
+
+data/db/

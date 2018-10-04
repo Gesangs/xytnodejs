@@ -16,7 +16,7 @@ html
         img(src="/touxiang/default.png")
       form(action="/user/signin", method="POST", accept-charset="utf-8", autocomplete="off")
         label(for="signinUsername")
-        input#signinUsername.inpu(type="tel", placeholder="学号", name="user[xuehao]", required, autofocus)
+        input#signinUsername.inpu(type="number", placeholder="学号", name="user[xuehao]", required, autofocus)
         label(for="signinPassword")
         input#signinPassword.inpu(type="password", placeholder="密码", name="user[password]", required)
         .inpu
@@ -32,7 +32,7 @@ html
         .modal-body
           .form-group
             label.tixing(for="signupName") 学号
-            input#signupName.form-control(name="user[xuehao]", type="tel")
+            input#signupName.form-control(name="user[xuehao]", type="number")
           .form-group
             label.tixing(for="signupPassword") 密码
             input#signupPassword.form-control(name="user[password]", type="password")

@@ -55,24 +55,24 @@ $(function() {
 	})
 })
 //天气
-$(function(){
-	$.getScript('http://php.weather.sina.com.cn/iframe/index/w_cl.php?code=js&day=0&city=&dfc=1&charset=utf-8',function(a){
-        var s="",r="",q="";for(s in window.SWther.w){
-        q=SWther.w[s][0];
-        r={ city:s,
-            date:SWther.add.now.split(" ")[0]||"",
-            day_weather:q.s1,
-            night_weather:q.s2,
-            day_temp:q.t1,
-            night_temp:q.t2,
-        },
-        $(".shijian").html(r.date);
-        $(".point").html(r.city);
-        $(".wendu").html(r.night_temp + "°" + "~" + r.day_temp + "°");
-        $(".weather").html(r.day_weather)
-        }
-});
-})
+// $(function(){
+// 	$.getScript('http://php.weather.sina.com.cn/iframe/index/w_cl.php?code=js&day=0&city=&dfc=1&charset=utf-8',function(a){
+//         var s="",r="",q="";for(s in window.SWther.w){
+//         q=SWther.w[s][0];
+//         r={ city:s,
+//             date:SWther.add.now.split(" ")[0]||"",
+//             day_weather:q.s1,
+//             night_weather:q.s2,
+//             day_temp:q.t1,
+//             night_temp:q.t2,
+//         },
+//         $(".shijian").html(r.date);
+//         $(".point").html(r.city);
+//         $(".wendu").html(r.night_temp + "°" + "~" + r.day_temp + "°");
+//         $(".weather").html(r.day_weather)
+//         }
+// });
+// })
 //提醒框
  $(function() {
  	if($('.alertbox').html()) {
@@ -112,14 +112,10 @@ $(function() {
 $(function() {
     var tixing;
     $("#signupName").blur(function() {
-        var xuehao = $("#signupName").val().slice(0, 8);
-        if(xuehao !== '70208150') {
+        var xuehao = $("#signupName").val();
+        if(xuehao.length > 20) {
             $($(".tixing")[0]).children('span').remove();
-            if($("#signupName").val()) {
-                tixing = '请用学号注册';
-            }else {
-                tixing = "请输入学号";
-            }
+            tixing = '账号不超过20位';            
             var html = '<span style="color:red;">'+ tixing + '</span>';
             $($(".tixing")[0]).append(html);
         }else{
@@ -146,8 +142,9 @@ $(function() {
     });
 
     $(".btn-success").click(function() {
-        if($(".tixing").length >= 0) {
-            return false;
+        if($(".tixing").length > 0) {
+            console.log($(".tixing"))
+            // return false;
         }
     })
 })
