@@ -37,6 +37,7 @@ exports.fankui = function(req,res){
 		.populate('reply.from reply.to', 'username touxiang')
 		.sort({'meta.updateAt':-1})
 		.exec(function(err, messages) {
+			console.log(messages)
 			res.render('icon-fankui', {
 				messages: messages,
 			})

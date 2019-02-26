@@ -1,54 +1,46 @@
 var User = require('../models/user.js')
 var fs = require("fs")
 var path = require('path')
-// signup
+// 注册
 exports.signup = function(req, res) {
-	var _user = req.body.user;
-	User.findOne({xuehao: _user.xuehao}, function(err,user) {
+	const { xuehao, password } = req.body;
+	User.findOne({ xuehao }, function(err, user) {
 		if(err) console.log(err)
 		if(user) {
-			req.flash('error','此学号已被注册');
-			return res.redirect('/')
+			return res.json({ code: 1, msg: '此学号已被注册' })
 		} else {
 			var user = new User({
-				xuehao: _user.xuehao,
-				username: _user.xuehao,
-				password: _user.password
+				xuehao,
+				username: xuehao,
+				password
 			})
 			user.save(function(err, user) {
 			if(err) console.log(err)
-			req.flash('info','注册成功');
-			res.redirect('/')
+			return res.json({ code: 0, msg: '注册成功' })			
 		})
 		}
 	})
 }
-//signin
+
+// 登录
 exports.signin = function(req, res) {
-	var _user = req.body.user;
-	var xuehao = _user.xuehao;
-	var password = _user.password;
+	const { xuehao, password } = req.body
 	User.findOne({xuehao: xuehao}, function(err, user) {
 		if(err) console.log(err)
 		if(!user) {
-			req.flash('error','学号不存在');
-			return res.redirect('/')
+			return res.json({ code: 2, msg: '此学号不存在' })			
 		}
 		user.comparePassword(password, function(err, isMatch) {
 			if(err) console.log(err)
 			if(isMatch) {
-				console.log('yes!')
-				req.flash('info','登录成功');
-				req.session.user = user;
-				return res.redirect('/content')
+				res.json({ code: 0, msg: '登录成功' })
 			} else{
-				req.flash('error','密码错误');
-				console.log('error!')
-				return res.redirect('/')
+				res.json({ code: 1, msg: '密码错误' })				
 			}
 		})
 	})
 }
+
 // logout
 exports.logout = function(req, res) {
 	delete req.session.user;
