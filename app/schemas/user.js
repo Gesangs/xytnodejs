@@ -19,11 +19,15 @@ var UserSchema = new mongoose.Schema({
 	xuehao: String,
 	banji:{
 		type:Number,
-		default:null
+		default: null
 	},
 	sex:{
-		type:String,
-		default:null
+		type: Number,
+		default: 0
+	},
+	desc: {
+		type: String,
+		default: ''
 	},
 	touxiang:{
 		type:String,

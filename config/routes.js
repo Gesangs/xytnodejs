@@ -15,6 +15,7 @@ module.exports = (app) => {
 	app.post('/user/signup', User.signup)
 	app.post('/user/signin', User.signin)
 	app.get('/logout', User.logout)
+	app.get('/user/info', User.getUserInfo)
 	app.post('/check', User.checkName)
 		/*** 课程 ***/
 	app.get('/content', Course.homepage)

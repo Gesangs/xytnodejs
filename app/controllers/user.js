@@ -11,7 +11,6 @@ exports.signup = function(req, res) {
 		} else {
 			var user = new User({
 				xuehao,
-				username: xuehao,
 				password
 			})
 			user.save(function(err, user) {
@@ -25,10 +24,10 @@ exports.signup = function(req, res) {
 // 登录
 exports.signin = function(req, res) {
 	const { xuehao, password } = req.body
-	User.findOne({xuehao: xuehao}, function(err, user) {
+	User.findOne({ xuehao }, function(err, user) {
 		if(err) console.log(err)
 		if(!user) {
-			return res.json({ code: 2, msg: '此学号不存在' })			
+			return res.json({ code: 2, msg: '账号不存在，请注册' })			
 		}
 		user.comparePassword(password, function(err, isMatch) {
 			if(err) console.log(err)
@@ -38,6 +37,18 @@ exports.signin = function(req, res) {
 				res.json({ code: 1, msg: '密码错误' })				
 			}
 		})
+	})
+}
+
+exports.getUserInfo = (req, res) => {
+	const { xuehao } = req.query
+	User.findOne({ xuehao }, (err, user) => {
+		if(err) console.log(err)
+		if(user) {
+			return res.json({ code: 0, user })		
+		} else {
+			return res.json({ code: 1, msg: '账号不存在，请注册' })			
+		}
 	})
 }
 
@@ -73,23 +84,21 @@ exports.adminRequired = function(req, res, next) {
 	next()
 }
 exports.saveTouxiang = function(req, res, next) {
-	var user = req.session.user;
-	var txdata = req.files.uploadTouxiang;
-	var filePath = txdata.path
-	var originalFilename = txdata.originalFilename
-
-	if(originalFilename) {
+	const txdata = req.files.avatar;
+	
+	if(txdata) {
+		const filePath = txdata.path
+		const { xuehao } = req.body
+		const originalFilename = txdata.originalFilename
 		fs.readFile(filePath, function(err, data) {
-			var txname = user.username
-			var type = txdata.type.split('/')[1]
-			var touxiang = txname + '.' + type
-			var newPath = path.join(__dirname, '../../', 'public/touxiang/' + touxiang)
+			const type = txdata.type.split('/')[1]
+			const touxiang = xuehao + '-avatar.' + type
+			const newPath = path.join(__dirname, '../../', 'public/touxiang/' + touxiang)
 
 			fs.writeFile(newPath, data, function(err) {
-				req.touxiang = touxiang
+				req.body.touxiang = touxiang
 				next()
 			});
-
 		});
 	}
 	else {
@@ -126,36 +135,15 @@ exports.checkName = function(req, res) {
 	})
 }
 
-exports.wodeupdate = function(req,res){
-	var user = req.session.user;
-	var _user = req.body.user;
-	var id = user._id;
-	var username = _user.username
-	var zhuanye = _user.zhuanye
-	var banji = _user.banji
-	var sex = _user.sex;
-	var touxiang = req.touxiang
-	typeof(touxiang) !== "undefined" && User.update({_id:id}, {$set:{touxiang:touxiang}}, function(err, user) {
+exports.wodeupdate = function(req, res){
+	const { xuehao } = req.body
+	delete req.body.xuehao
+	User.update({ xuehao }, { $set: req.body }, (err, u) => {
 		if (err) console.log(err)
+		User.findOne({ xuehao }, (err, user) => {
+			return res.json({ code: 0, user })
+		})
 	})
-	zhuanye !== "" && User.update({_id:id}, {$set:{zhuanye:zhuanye}}, function(err, user) {
-		if (err) console.log(err)
-	})
-	banji !== "" && User.update({_id:id}, {$set:{banji:banji}}, function(err, user) {
-		if (err) console.log(err)
-	})
-	sex !== "" && User.update({_id:id}, {$set:{sex:sex}}, function(err, user) {
-		if (err) console.log(err)
-	})
-	User.update({_id:id}, {$set:{username:username}}, function(err, user) {
-		if (err) console.log(err)
-	})
-	User.findOne({_id:id}, function(err, user){
-		if(err) console.log(err);
-		req.session.user = user;
-		req.session.save();
-	})
-	return res.redirect('/icon-wode')
 }
 
 exports.chat = function(req,res){
