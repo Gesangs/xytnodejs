@@ -1,7 +1,8 @@
-var Index = require('../app/controllers/index.js');
-var User = require('../app/controllers/user.js');
-var Course = require('../app/controllers/course.js');
-var Message = require('../app/controllers/message.js')
+const Index = require('../app/controllers/index.js');
+const User = require('../app/controllers/user.js');
+const Course = require('../app/controllers/course.js');
+const Message = require('../app/controllers/message.js')
+const News = require('../app/controllers/news')
 module.exports = (app) => {
 	app.use(function(req, res, next) {
 		res.header("Access-Control-Allow-Origin", "*");
@@ -25,7 +26,8 @@ module.exports = (app) => {
 	app.get('/icon-ht-class/next', User.findRequired, User.signinRequired, Course.nextcourse);
 	app.get('/icon-chengji', User.findRequired, User.signinRequired, Course.chengji)
 	app.get('/icon-fankui', User.signinRequired, Message.fankui)
-	app.post('/user/message', User.signinRequired, Message.save)
+	app.post('/user/post_message', Message.save)
+	app.get('/user/get_message', Message.getAll)
 	app.get('/icon-kaoshi', User.findRequired, User.signinRequired, Course.kaoshi)
 	app.get('/icon-wode', User.signinRequired, User.wode)
 	app.get('/icon-chat', User.signinRequired, User.chat)
@@ -37,4 +39,11 @@ module.exports = (app) => {
 	app.post('/xuanke/insert', Course.xuankesave)
 	app.post('/wode/update',User.saveTouxiang, User.wodeupdate);
 	app.post('/chengji',Course.seek)
+
+
+	// 新闻
+	app.get('/news', News.getNews)
+	app.post('/admin/save_news', News.save)
+	app.post('/admin/delete_news', News.delete)
+	app.post('/admin/update_news', News.update)
 }

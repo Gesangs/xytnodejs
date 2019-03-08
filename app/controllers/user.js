@@ -1,5 +1,5 @@
 var User = require('../models/user.js')
-var fs = require("fs")
+var fs = require('fs')
 var path = require('path')
 // 注册
 exports.signup = function(req, res) {
