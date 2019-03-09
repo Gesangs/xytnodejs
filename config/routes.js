@@ -25,7 +25,6 @@ module.exports = (app) => {
 	app.get('/icon-ht-class/pre', User.findRequired, User.signinRequired, Course.precourse);
 	app.get('/icon-ht-class/next', User.findRequired, User.signinRequired, Course.nextcourse);
 	app.get('/icon-chengji', User.findRequired, User.signinRequired, Course.chengji)
-	app.get('/icon-fankui', User.signinRequired, Message.fankui)
 	app.post('/user/post_message', Message.save)
 	app.get('/user/get_message', Message.getAll)
 	app.get('/icon-kaoshi', User.findRequired, User.signinRequired, Course.kaoshi)
