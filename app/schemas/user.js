@@ -76,17 +76,12 @@ UserSchema.methods = {
 		})
 	}
 }
-//取出目前数据库所有的数据
+
 UserSchema.statics = {
-	fetch:function(cb){
+	findByXuehao: function(xuehao, cb) {
 		return this
-		 .find({})
-		 .sort('meta.updateAt')
-		 .exec(cb)
-	},
-	findById:function(id, cb){
-		return this
-		.findOne({_id:id})
+		.findOne(xuehao)
+		.select({ password: 0, meta: 0 })
 		.exec(cb)
 	}
 }

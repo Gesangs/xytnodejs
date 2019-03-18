@@ -42,7 +42,7 @@ exports.signin = function(req, res) {
 
 exports.getUserInfo = (req, res) => {
 	const { xuehao } = req.query
-	User.findOne({ xuehao }, (err, user) => {
+	User.findByXuehao({ xuehao }, (err, user) => {
 		if(err) console.log(err)
 		if(user) {
 			return res.json({ code: 0, user })		
@@ -140,7 +140,7 @@ exports.wodeupdate = function(req, res){
 	delete req.body.xuehao
 	User.update({ xuehao }, { $set: req.body }, (err, u) => {
 		if (err) console.log(err)
-		User.findOne({ xuehao }, (err, user) => {
+		User.findByXuehao({ xuehao }, (err, user) => {
 			return res.json({ code: 0, user })
 		})
 	})
