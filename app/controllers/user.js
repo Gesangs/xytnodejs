@@ -52,6 +52,36 @@ exports.getUserInfo = (req, res) => {
 	})
 }
 
+// 获取所有用户
+exports.getAllUser = (req, res) => {
+	const limit = +req.query.limit || 3
+    const page = +req.query.page || 0
+    User.count((err, total) => {
+      User.find({})
+        .sort({ '_id': -1 })
+        .skip(limit * page)
+        .limit(limit)
+        .exec((err, user) => {
+          if (err) console.log(err)
+          return res.json({ code: 0, user, total })
+        })
+    })
+}
+
+// 用户搜索
+exports.search = (req, res) => {
+	const { key } = req.body
+	const reg = new RegExp(key, 'i') 
+  User.find({ $or: [
+		{xuehao: {$regex: reg}},
+		{username: {$regex: reg}}
+	]})
+    .exec((err, user) => {
+			if (err) console.log(err)
+			return res.json({ code: 0, user })
+		})
+}
+
 // logout
 exports.logout = function(req, res) {
 	delete req.session.user;
@@ -124,13 +154,14 @@ exports.wode = function(req,res){
 }
 
 exports.checkName = function(req, res) {
-	var user = req.body.username;
-	User.findOne({uesrname: user}, function(err, user) {
-		if(err) {
-			log(err);
-		}
-		if(user) {
-			res.render("该昵称被占用！")
+	console.log(req.body)
+	const { username } = req.body;
+	User.findOne({ username }, function(err, user) {
+		if (err) console.log(err);
+		if (user) {
+			res.json({ code: 0, isOccupy: true })
+		} else {
+			res.json({ code: 0, isOccupy: false })
 		}
 	})
 }

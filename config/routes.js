@@ -48,4 +48,9 @@ module.exports = (app) => {
 	app.post('/admin/save_news', News.save)
 	app.post('/admin/delete_news', News.delete)
 	app.post('/admin/update_news', News.update)
+
+	// 用户
+	app.get('/user', User.getAllUser)
+	app.post('/user/search', User.search)
+	app.post('/user/check_name', User.checkName)
 }
