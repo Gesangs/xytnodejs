@@ -9,7 +9,8 @@ var NewsSchema = new mongoose.Schema({
 		default: Date.now()
 	},
 	type: Number,
-	author: String
+	author: String,
+	like: Number
 })
 
 NewsSchema.statics = {

@@ -31,7 +31,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "startdb": "mongod --dbpath ./data/db",
-    "app": "node app1",
+    "app": "nodemon app1.js",
     "start": "npm run startdb & npm run app"
   },
   "author": "",

@@ -26,7 +26,9 @@ module.exports = (app) => {
 	app.get('/icon-ht-class/next', User.findRequired, User.signinRequired, Course.nextcourse);
 	app.get('/icon-chengji', User.findRequired, User.signinRequired, Course.chengji)
 	app.post('/user/post_message', Message.save)
-	app.get('/user/get_message', Message.getAll)
+	app.get('/news/get_message', Message.getAllByOne)
+	app.get('/user/get_lately_message', Message.getLatelyByUser)
+
 	app.get('/icon-kaoshi', User.findRequired, User.signinRequired, Course.kaoshi)
 	app.get('/icon-wode', User.signinRequired, User.wode)
 	app.get('/icon-chat', User.signinRequired, User.chat)
@@ -42,6 +44,7 @@ module.exports = (app) => {
 
 	// 新闻
 	app.get('/news', News.getNews)
+	app.post('/news/search', News.search)
 	app.post('/admin/save_news', News.save)
 	app.post('/admin/delete_news', News.delete)
 	app.post('/admin/update_news', News.update)
