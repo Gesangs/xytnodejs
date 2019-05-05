@@ -154,15 +154,10 @@ exports.wode = function(req,res){
 }
 
 exports.checkName = function(req, res) {
-	console.log(req.body)
 	const { username } = req.body;
 	User.findOne({ username }, function(err, user) {
 		if (err) console.log(err);
-		if (user) {
-			res.json({ code: 0, isOccupy: true })
-		} else {
-			res.json({ code: 0, isOccupy: false })
-		}
+		res.json({ code: 0, isOccupy: (user ? true : false) })
 	})
 }
 
