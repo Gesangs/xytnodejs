@@ -1,6 +1,8 @@
-var User = require('../models/user.js')
-var fs = require('fs')
-var path = require('path')
+const User = require('../models/user.js')
+const getAllUtil = require('../util')
+const fs = require('fs')
+const path = require('path')
+
 // 注册
 exports.signup = function(req, res) {
 	const { xuehao, password } = req.body;
@@ -53,25 +55,12 @@ exports.getUserInfo = (req, res) => {
 }
 
 // 获取所有用户
-exports.getAllUser = (req, res) => {
-	const limit = +req.query.limit || 3
-    const page = +req.query.page || 0
-    User.count((err, total) => {
-      User.find({})
-        .sort({ '_id': -1 })
-        .skip(limit * page)
-        .limit(limit)
-        .exec((err, user) => {
-          if (err) console.log(err)
-          return res.json({ code: 0, user, total })
-        })
-    })
-}
+exports.getAllUser = (req, res) => getAllUtil(req, res, User, 'user')
 
 // 用户搜索
 exports.search = (req, res) => {
 	const { key } = req.body
-	const reg = new RegExp(key, 'i') 
+	const reg = new RegExp(key, 'i')
   User.find({ $or: [
 		{xuehao: {$regex: reg}},
 		{username: {$regex: reg}}

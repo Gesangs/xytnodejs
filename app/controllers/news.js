@@ -1,4 +1,5 @@
 const News = require('../models/news')
+const getAllUtil = require('../util')
 
 // 添加文章
 exports.save = (req, res) => {
@@ -16,18 +17,7 @@ exports.getNews = (req, res) => {
       return res.json({ code: 0, news })
     })
   } else {
-    const limit = +req.query.limit || 3
-    const page = +req.query.page || 0
-    News.count((err, total) => {
-      News.find({})
-        .sort({ '_id': -1 })
-        .skip(limit * page)
-        .limit(limit)
-        .exec((err, news) => {
-          if (err) console.log(err)
-          return res.json({ code: 0, news, total })
-        })
-    })
+    getAllUtil(req, res, News, 'news')
   }
 }
 
@@ -55,10 +45,14 @@ exports.giveALike = (req, res) => {
   })
 }
 
-// 新闻搜索, 根据标题名
+// 新闻搜索, 根据标题名或文章内容
 exports.search = (req, res) => {
   const { key } = req.body
-  News.find({ title: {$regex: key, $options:'i'} })
+	const reg = new RegExp(key, 'i')
+  News.find({ $or: [
+		{title: {$regex: reg}},
+		{content: {$regex: reg}}
+	]})
     .sort({ '_id': -1 })
     .exec((err, news) => {
 			if (err) console.log(err)

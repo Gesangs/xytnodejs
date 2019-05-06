@@ -28,6 +28,9 @@ module.exports = (app) => {
 	app.post('/user/post_message', Message.save)
 	app.get('/news/get_message', Message.getAllByOne)
 	app.get('/user/get_lately_message', Message.getLatelyByUser)
+	app.post('/message/search', Message.search)
+	app.get('/message', Message.getAll)
+
 
 	app.get('/icon-kaoshi', User.findRequired, User.signinRequired, Course.kaoshi)
 	app.get('/icon-wode', User.signinRequired, User.wode)

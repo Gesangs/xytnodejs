@@ -1,4 +1,5 @@
 const Message = require('../models/message')
+const getAllUtil = require('../util')
 
 // 发表评论
 exports.save = (req, res) => {
@@ -35,24 +36,13 @@ exports.getLatelyByUser = (req, res) => {
 }
 
 // 获取所有评论
-exports.getAll = (req, res) => {
-	Message
-		.find({})
-		.sort({ '_id': -1 })
-		.exec((err, mes) => {
-			if (err) console.log(err)
-			return res.json({ code: 0, message: mes })
-		})
-}
+exports.getAll = (req, res) => getAllUtil(req, res, Message, 'message')
 
-// 搜索评论，根据学号或内容
+// 搜索评论，根据内容
 exports.search = (req, res) => {
-	const { key } = req.query
-	const search = /^\d+$/.test(key) 
-		? { xuehao: key } 
-		: { content: {$regex: key, $options:'i'} }
+	const { key } = req.body
 	Message
-		.find(search)
+		.find({ content: {$regex: key, $options:'i'} })
 		.sort({ '_id': -1 })
 		.exec((err, mes) => {
 			if (err) console.log(err)
