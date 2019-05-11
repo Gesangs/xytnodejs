@@ -1,5 +1,5 @@
-var mongoose = require('mongoose')
-var NewsSchema = require('../schemas/news')
-var News = mongoose.model('News', NewsSchema)
+const mongoose = require('mongoose')
+const NewsSchema = require('../schemas/news')
+const News = mongoose.model('News', NewsSchema)
 
 module.exports = News

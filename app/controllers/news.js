@@ -21,6 +21,9 @@ exports.getNews = (req, res) => {
   }
 }
 
+// TODO 通过type获取资讯
+
+
 // 删除文章
 exports.delete = (req, res) => {
   News.deleteOne({ _id: req.body._id }, (err, news) => {
