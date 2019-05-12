@@ -5,20 +5,20 @@ var SALT_WORK_FACTOR = 10;
 var UserSchema = new mongoose.Schema({
 	xuehao: {
 		unique:true,
-		type:String
+		type: String
 	},
-	password:String,
+	password: String,
 	role:{
-		type:Number,
-		default:0
+		type: Number,
+		default: 1
 	},
 	zhuanye:{
-		type:String,
+		type: String,
 		default:''
 	},
 	username: String,
 	banji:{
-		type:Number,
+		type: Number,
 		default: null
 	},
 	sex:{
@@ -30,17 +30,17 @@ var UserSchema = new mongoose.Schema({
 		default: ''
 	},
 	touxiang:{
-		type:String,
+		type: String,
 		default:'default.png'
 	},
 	meta:{
 		createAt:{
-			type:Date,
+			type: Date,
 			default:Date.now()
 		},
 		updateAt:{
-			type:Date,
-			default:Date.now()
+			type: Date,
+			default: Date.now()
 		}
 	}
 })

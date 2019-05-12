@@ -39,6 +39,7 @@ module.exports = (app) => {
 	app.post('/admin/save_news', News.save)
 	app.post('/admin/delete_news', News.delete)
 	app.post('/admin/update_news', News.update)
+	app.get('/news/type', News.getByType)
 
 	// 资讯版块
 	app.get('/section', Section.getAll)

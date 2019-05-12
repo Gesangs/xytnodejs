@@ -48,6 +48,13 @@ exports.giveALike = (req, res) => {
   })
 }
 
+exports.getByType = (req, res) => {
+  const { type } = req.query
+  News.find({ type }).exec((err, news) => {
+    return res.json({ code: 0, news })
+  })
+}
+
 // 新闻搜索, 根据标题名或文章内容
 exports.search = (req, res) => {
   const { key } = req.body
