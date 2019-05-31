@@ -49,3 +49,9 @@ exports.search = (req, res) => {
 			return res.json({ code: 0, message: mes })
 		})
 }
+
+exports.delete = (req, res) => {
+	Message.deleteOne({ _id: req.query._id }, (err, news) => {
+    return res.json({ code: 0, msg: '删除成功' })
+  })
+}

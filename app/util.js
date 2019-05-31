@@ -1,5 +1,5 @@
 const getAllUtil = (req, res, Model, name) => {
-  const limit = +req.query.limit || 3
+  const limit = +req.query.limit || 9
     const page = +req.query.page || 0
     Model.count((err, total) => {
       Model.find({})

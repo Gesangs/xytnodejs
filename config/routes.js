@@ -18,12 +18,14 @@ module.exports = (app) => {
 	app.get('/logout', User.logout)
 	app.get('/user/info', User.getUserInfo)
 	app.post('/check', User.checkName)
-		// course page
+
+		// 用户评论
 	app.post('/user/post_message', Message.save)
 	app.get('/news/get_message', Message.getAllByOne)
 	app.get('/user/get_lately_message', Message.getLatelyByUser)
 	app.post('/message/search', Message.search)
 	app.get('/message', Message.getAll)
+	app.get('/message/delete', Message.delete)
 
 
 	app.get('/icon-wode', User.signinRequired, User.wode)
@@ -44,6 +46,8 @@ module.exports = (app) => {
 	// 资讯版块
 	app.get('/section', Section.getAll)
 	app.post('/section/create', Section.createSection)
+	app.get('/section/delete', Section.delete)
+	app.post('/section/update', Section.update)
 
 
 	// 用户
